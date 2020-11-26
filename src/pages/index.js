@@ -42,6 +42,10 @@ export default function Home() {
 
     });
 
+    window.addEventListener("orientationchange", function(event) {
+      setMenu(false);
+    })
+
     let galleryImages = document.getElementsByClassName("img");
     for(var i = 0; i < galleryImages.length; i++){
       galleryImages[i].addEventListener("click", function(e){
@@ -76,6 +80,9 @@ export default function Home() {
     var element = document.getElementById(elementID);
 
     element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+    if(showMenu){
+      setMenu(false);
+    }
   }
 
   return <Wrapper id="main-wrapper">
@@ -94,7 +101,7 @@ export default function Home() {
             <NavItemsWrapper presentMenu={showMenu}>
               <NavItem presentMenu={showMenu} onClick={() => scrollToDiv("about")} >ABOUT</NavItem>
               <NavItem presentMenu={showMenu} onClick={() => scrollToDiv("gallery")} >MY WORK</NavItem>
-              <NavItem presentMenu={showMenu}>CONTACT</NavItem>
+              <NavLink presentMenu={showMenu}  href="mailto:techwithe@gmail.com" target="_blank" >CONTACT</NavLink>
             </NavItemsWrapper>
            
             
@@ -105,14 +112,14 @@ export default function Home() {
             </div>
             <FourRowLayout>
 
-              <section className="space-y-8" >
+              <AboutWrapper className="space-y-8"  >
                 <section>
                   <Title>I'M SERGEY</Title>
                   <Subtitle>PHOTOGRAPHER</Subtitle>
                 </section>
                 <Spacer />
                 <Paragraph>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </Paragraph>
-              </section>
+              </AboutWrapper>
              
               <ArrowButton><img className="w-4 " src={arrow} alt="arrow_back" onClick={()=>scrollToDiv("gallery")}/></ArrowButton>
             </FourRowLayout>
@@ -186,7 +193,7 @@ const translateIn = keyframes `
 `
 
 const NavBar = styled.main.attrs( props => ({
-  className : `flex flex-row  z-10  fixed  ${props.presentMenu ? 'transition-all duration-200 h-full justify-center bg-opacity-0 ' : ' transition-all duration-300  h-16 sm:h-16  lg:h-24 space-x-16 xl:space-x-32  '} lg:items-center  pr-8 pl-8  md:pl-16 md:pr-16 pt-4 lg:pt-0 lg:pl-24 lg:pr-24 xxl:pl-56  xl:pr-56  w-screen `
+  className : `flex flex-row  z-10  fixed  ${props.presentMenu ? 'transition-all duration-200 h-full justify-center bg-opacity-0 ' : ' transition-all duration-300  h-20 sm:h-20 md:h-24  lg:h-24 space-x-16 xl:space-x-32  '} lg:items-center  pr-8 pl-8  md:pl-16 md:pr-16 pt-4 lg:pt-0 lg:pl-24 lg:pr-24 xxl:pl-56  xl:pr-56  w-screen `
 }))`
   background-color : #050505;
   & {
@@ -202,22 +209,32 @@ const NavItemsWrapper = styled.main.attrs(props => ({
   animation:  ${fade} 2s linear;
 
   & {
-    a {
+    /* a {
       ${tw`text-base  text-left `}
-    }
+    } */
   }
 `
 const NavItem = styled.button.attrs((props) => ({
   className: `${props.presentMenu ? `text-2xl` : `text-sm`} text-white focus:outline-none text-left`
 }))`
-
+  
+`
+const NavLink = styled.a.attrs((props) => ({
+  className: `${props.presentMenu ? `text-2xl` : `text-sm`} text-white focus:outline-none text-left`
+}))`
+  
 `
 
 
 const TwoColumnLayout = styled.div`
   ${tw`h-full w-full bg-transparent items-start  grid  lg:grid-cols-2 gap-4 text-white mt-20 lg:mt-0 pt-0 lg:pl-24 lg:pr-24 lg:pt-24 xl:p-56 xl:pt-24 xl:pb-0 `}
 `
+const AboutWrapper = styled.section `
+ animation:  ${translateIn} .5s linear;
+ ${tw`space-y-8`}
+`
 const FullImageWrapper = styled.div`
+  animation:  ${translateIn} .5s linear;
   ${tw`h-full hidden lg:block xl:pl-8  `}
 `
 
@@ -226,7 +243,6 @@ const FullImage = styled.img`
   ${tw`flex flex-col w-full justify-end`}
 `
 const FourRowLayout = styled.div`
-  animation:  ${translateIn} .5s linear;
   ${tw`h-screen w-screen lg:h-full lg:w-full absolute left-0 top-0 mt-20 lg:mt-0  pl-8 pr-8 md:pl-16 md:pl-16 lg:pl-0 lg:pr-0 xl:pl-0 xl:pr-0 lg:relative justify-center bg-black lg:bg-transparent bg-opacity-75 flex flex-col space-y-12  landscape:space-y-8 md:space-y-20 landscape:lg:space-y-20  text-white`}
 `
 
@@ -253,6 +269,7 @@ const Paragraph = styled.h1`
   ${tw`text-xl font-light`}
 `
 const ArrowButton = styled.button`
+  animation:  ${translateIn} .5s linear;
   background-color: #222222;
   ${tw`rounded-full h-12 w-12 portrait:md:h-16 portrait:md:w-16 lg:w-16 lg:h-16 flex items-center hover:bg-white focus:outline-none justify-center`}
 `
@@ -260,10 +277,11 @@ const ArrowButton = styled.button`
 /* === Gallery === */
 
 const LightBox = styled.div.attrs((props) => ({
-className : `hidden w-full h-screen fixed top-0 right-0 z-10 bg-black bg-opacity-75  flex  items-center justify-center `
+className : `hidden w-full h-screen fixed top-0 right-0 z-10 bg-black bg-opacity-75   flex  items-center justify-center `
 }))`
   img {
-    ${tw`fixed left-0 right-0 my-auto mx-auto inset-0  lg:max-w-xl`}
+    animation:  ${fade} .5s linear;
+    ${tw`fixed left-0 right-0 my-auto mx-auto inset-0   lg:max-w-xl`}
   
   }
 
@@ -272,7 +290,7 @@ className : `hidden w-full h-screen fixed top-0 right-0 z-10 bg-black bg-opacity
 const Gallery = styled.div`
   .img {
     opacity: 0;
-    transform: translate(0, 10vh);
+    transform: translate(0, 5vh);
     transition: all 1s;
   }
   .img.visible {
