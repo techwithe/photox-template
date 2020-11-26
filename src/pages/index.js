@@ -35,7 +35,7 @@ export default function Home() {
          
           img.classList.add("visible")
         } else {
-          // img.classList.remove("visible");
+       
         }
         
       }
