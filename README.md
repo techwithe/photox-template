@@ -8,16 +8,23 @@
   Gatsby's tailwind and styled componenets boilerplate
 </h1>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 ## 🚀 Quick start
 
 1.  **Start developing.**
 
+<<<<<<< HEAD
     Install dependencies
 
     ```shell
     npm run install
     ```
 
+=======
+>>>>>>> origin/master
     Navigate into your new site’s directory and start it up.
 
     ```shell

@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "configurations": [
     {
       "type": "aws-sam",
@@ -17,3 +18,23 @@
     }
   ]
 }
+=======
+    "configurations": [
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "templates:src/pages/index.Home (nodejs12.x)",
+            "invokeTarget": {
+                "target": "code",
+                "projectRoot": "",
+                "lambdaHandler": "src/pages/index.Home"
+            },
+            "lambda": {
+                "runtime": "nodejs12.x",
+                "payload": {},
+                "environmentVariables": {}
+            }
+        }
+    ]
+}
+>>>>>>> origin/master
