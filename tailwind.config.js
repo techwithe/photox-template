@@ -1,19 +1,13 @@
 module.exports = {
-  future: {
-    // removeDeprecatedGapUtilities: true,
-    // purgeLayersByDefault: true,
-  },
-  purge: [],
+  content: ["./src/**/*.html", "./src/**/*.js"],
   theme: {
     extend: {
       screens: {
-        'xxl' : '1900px',
-        'portrait': {'raw': '(orientation: portrait)'},
-        'landscape': {'raw': '(orientation: landscape)'}
-        // => @media (orientation: portrait) { ... }
-      }
+        xxl: "1900px",
+        portrait: { raw: "(orientation: portrait)" },
+        landscape: { raw: "(orientation: landscape)" },
+      },
     },
   },
-  variants: {},
   plugins: [],
 }

@@ -29,6 +29,10 @@ export default function Home() {
   const galleryImagesRef = useRef([])
 
   useEffect(() => {
+    //Ref copies
+    const galleryImagesRefCopy = galleryImagesRef
+    const lightBoxRefCopy = lightBoxRef
+
     // Function for handling image visibility on scroll
     const handleImageVisibility = () => {
       const pageTop = window.scrollY
@@ -77,10 +81,10 @@ export default function Home() {
     // Clean up event listeners on unmount
     return () => {
       window.removeEventListener("scroll", handleImageVisibility)
-      galleryImagesRef.current.forEach(img => {
+      galleryImagesRefCopy.current.forEach(img => {
         img.removeEventListener("click", toggleLightBox)
       })
-      lightBoxRef.current.removeEventListener("click", hideLightBox)
+      lightBoxRefCopy.current.removeEventListener("click", hideLightBox)
     }
   }, [])
 
@@ -269,7 +273,7 @@ export default function Home() {
         <section className="space-x-8 md:space-x-16 lg:space-x-24">
           <FooterLink href="https://instagram.com">INSTAGRAM</FooterLink>
           <FooterLink href="https://facebook.com">FACEBOOK</FooterLink>
-          <FooterLink href="https://pinterest.com">PINTREST</FooterLink>
+          <FooterLink href="https://pinterest.com">PINTEREST</FooterLink>
         </section>
         <CopyRightInfo>
           <label className="text-left flex flex-row gap-2">
@@ -454,10 +458,10 @@ const Footer = styled.div`
 `
 
 const FooterLink = styled.a`
-  ${tw`text-white text-opacity-75 text-sm md:text-base lg:text-lg xl:text-lg`}
+  ${tw`text-white text-opacity-75 text-sm`}
 `
 const CopyRightInfo = styled.main.attrs({
-  className: `w-full items-center justify-center  flex flex-row text-center`,
+  className: `w-full items-center justify-center flex flex-row text-center`,
 })`
   & {
     label {
